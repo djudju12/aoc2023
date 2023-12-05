@@ -44,8 +44,8 @@ def get_seeds(maps: str):
 
 def get_map(maps: str, header: str, next_header: str = "", eof: bool = False):
     next_i = maps.index(next_header) if not eof else len(maps)
-    soil_fertilizer_maps = maps[len(header):next_i]
-    result = extract_map(soil_fertilizer_maps.splitlines())
+    nmap = maps[len(header):next_i]
+    result = extract_map(nmap.splitlines())
     return result, maps[next_i:]
 
 def extract_map(lines: list[str]) -> dict:
@@ -56,15 +56,6 @@ def extract_map(lines: list[str]) -> dict:
             result.append( tuple(map(int, entry.split(" "))) )
 
     return result
-
-def get_value(map, key):
-    dst, src, r = 0, 1, 2
-
-    for m in map:
-        if key >= m[src] and key < m[src]+m[r]:
-            return m[dst] + (key - m[src])
-
-    return key
 
 def get_key(map, value):
     dst, src, r = 0, 1, 2
