@@ -1,7 +1,4 @@
 #!/usr/bin/python3
-
-import math
-
 def main():
     maps = read_file("input")[len("seeds: "):]
     seeds, maps = get_seeds(maps)
