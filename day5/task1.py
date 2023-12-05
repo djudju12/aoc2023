@@ -10,8 +10,8 @@ def main():
     temperature_to_humidity, maps = get_map(maps, "temperature-to-humidity map:\n", "humidity-to")
     humidity_to_location, maps = get_map(maps, "humidity-to-location map:\n", eof=True)
 
-    locations = []
-    for i, seed in enumerate(seeds):
+    curr_location = float('inf')
+    for _, seed in enumerate(seeds):
         soil = get_value(seed_to_soil, seed)
         fertilizer = get_value(soil_to_fertilizer, soil)
         water = get_value(fertilizer_to_water, fertilizer)
@@ -19,9 +19,10 @@ def main():
         temperature = get_value(light_to_temperature, light)
         humidity = get_value(temperature_to_humidity, temperature)
         location = get_value(humidity_to_location, humidity)
-        locations.append(location)
+        if location < curr_location:
+            curr_location = location
 
-    print(min(locations))
+    print(curr_location)
 
 def get_seeds(maps: str):
     next_i = maps.index("seed-to-soil map:\n")
